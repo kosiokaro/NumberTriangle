@@ -130,9 +130,6 @@ public class NumberTriangle {
         String line = br.readLine();
         while (line != null) {
 
-            // remove when done; this line is included so running starter code prints the contents of the file
-            System.out.println(line);
-
             String[] numbers = line.trim().split("\\s+");
             List<NumberTriangle> row = new ArrayList<>();
 
@@ -147,6 +144,21 @@ public class NumberTriangle {
             line = br.readLine();
         }
         br.close();
+        // Connect the nodes
+        for (int i = 0; i < triangle.size() - 1; i++) {
+            List<NumberTriangle> currentRow = triangle.get(i);
+            List<NumberTriangle> nextRow = triangle.get(i + 1);
+
+            for (int j = 0; j < currentRow.size(); j++) {
+                currentRow.get(j).setLeft(nextRow.get(j));
+                currentRow.get(j).setRight(nextRow.get(j + 1));
+            }
+        }
+
+        // Set top to the first element
+        if (!triangle.isEmpty()) {
+            top = triangle.get(0).get(0);
+        }
         return top;
     }
 
